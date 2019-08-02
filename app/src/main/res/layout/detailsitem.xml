@@ -20,8 +20,8 @@
 
             android:text="ИП Буйлов"
             android:textAlignment="textStart"
-            android:textSize="24sp"
-            android:textStyle="bold|italic"
+            android:textSize="18sp"
+            android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

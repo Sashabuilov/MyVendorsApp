@@ -48,12 +48,17 @@ public class MainActivity extends AppCompatActivity {
     String tblSvod = "manufacturers_materials";
     String[] strings;
     int j = 0;
+    String row;
+    String rowName;
+    String tables;
+    String selectName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initUI();
+        row="Id";rowName="mat.Id";tables=tblMan;selectName="Name";
         registerForContextMenu(listView);
         mDBHelper = new DataBaseHelper(this);
 
@@ -76,11 +81,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (rbMaterials.isChecked()) {
+                    row="Id";rowName="mat.Id";tables=tblMan;selectName="Name";
                     new workWithDb().showAll(tblMat, dataset, database, dataItem, rbMaterials);
                     String[] from = {"mName"};
                     int[] to = {R.id.mName_holder};
                     new listViewAdapter().setAdapter(from, to, rbMaterials, listView, dataset, getApplicationContext());
                 } else {
+                    row="id";rowName="man.id";tables=tblMat;selectName="mName";
                     new workWithDb().showAll(tblMan, dataset, database, dataItem, rbMaterials);
                     String[] from = {"Name", "INN"};
                     int[] to = {R.id.mName_holder, R.id.mINN_Holder};
@@ -101,10 +108,22 @@ public class MainActivity extends AppCompatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (etSearch.getHint().toString().equals("Поиск")) {
+                /*if (etSearch.getHint().toString().equals("Поиск")) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Введите значение поиска", Toast.LENGTH_SHORT);
                     toast.show();
-                }
+                } else
+                {*/
+                   // new workWithDb().showAll(tblMat,dataset,database,dataItem,rbMaterials);
+                String query = "SELECT * FROM materials WHERE mName="+"'"+etSearch.getText().toString()+"'" ;
+               Cursor crsr = database.rawQuery(query,null);
+                crsr.moveToFirst();
+                //Пробегаем по всем клиентам
+                while (!crsr.isAfterLast()) {
+                    Toast.makeText(getApplicationContext(),crsr.getString(0),Toast.LENGTH_SHORT).show();
+                    crsr.moveToNext();
+                } crsr.close();
+
+               // }
             }
         });
     }
@@ -135,10 +154,16 @@ public class MainActivity extends AppCompatActivity {
             case R.id.show_advance:
                 Intent intent = new Intent(this, detailsActivity.class);
                 HashMap<String, String> dataedit = dataset.get(info.position);
-                advanceItem(dataedit);
+
+                Bundle bundle = new advanceActivity().showAdvance(tblMan,tblMat,tblSvod,dataedit,
+                        database,strings,j,getApplicationContext(),row,rowName,tables,selectName);
+
+                j = bundle.getInt("j");
+                strings = bundle.getStringArray("strings");
+
                 intent.putExtra("count", j);
+
                 stringArray.addAll(Arrays.asList(strings).subList(0, j));
-                intent.putExtra("count", j);
                 intent.putExtra("Name", stringArray);
                 startActivity(intent);
                 stringArray.clear();
@@ -152,7 +177,6 @@ public class MainActivity extends AppCompatActivity {
 
                 //кнопка удалить
             case R.id.delete:
-
                 HashMap<String, String> datadelet = dataset.get(info.position);
                 deleteItem(datadelet);
                 return true;
@@ -183,28 +207,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //работа с детализацией
-    public void advanceItem(HashMap<String, String> data) {
-        String query = "SELECT Name FROM " + tblMan + " as man," +
-                tblMat + " as mat," + tblSvod + " as svod " +
-                "WHERE man.id=svod.manufacturers_id " +
-                "AND mat.Id=svod.materials_id " +
-                "AND mat.Id=" + data.get("Id");
-        Cursor cursor = database.rawQuery(query, null);
-//получаем длину таблицы
-        long rowCount = DatabaseUtils.queryNumEntries(database, "manufacturers");
-        String str = Long.toString(rowCount);
-        int i = Integer.parseInt(str);
-        strings = new String[i];
-        cursor.moveToFirst();
 
-        while (!cursor.isAfterLast()) {
-            strings[j] = cursor.getString(0);
-            j = j + 1;
-            cursor.moveToNext();
-        }
-        cursor.close();
-    }
+
 
     //Инициализация контекстного меню:
     @Override
@@ -213,7 +217,6 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.context_menu, menu);
     }
-
     //инициализация UI элементов:
     public void initUI() {
         btnAdd = findViewById(R.id.btnAdd);

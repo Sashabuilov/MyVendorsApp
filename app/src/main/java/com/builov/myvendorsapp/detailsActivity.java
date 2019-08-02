@@ -28,6 +28,9 @@ public class detailsActivity extends AppCompatActivity {
             stringArray = (ArrayList<String>) getIntent().getSerializableExtra("Name");
         }
         new detailAdapter().setAdapter(stringArray,getApplicationContext(),detailListView);
+
+
+
         back = findViewById(R.id.buttonBack);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
