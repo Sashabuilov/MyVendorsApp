@@ -20,6 +20,7 @@
         <activity android:name=".adapter.listViewAdapter" />
         <activity android:name=".detailsActivity" />
         <activity android:name=".selectionScreenActivity" />
+        <activity android:name=".editActivity" />
     </application>
 
 </manifest>

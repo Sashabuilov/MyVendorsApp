@@ -1,10 +1,8 @@
 package com.builov.myvendorsapp;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -19,11 +17,11 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.builov.myvendorsapp.adapter.listViewAdapter;
 import com.builov.myvendorsapp.database.DataBaseHelper;
+import com.builov.myvendorsapp.database.getDataActivity;
 import com.builov.myvendorsapp.database.sqlQuery;
 import com.builov.myvendorsapp.database.workWithDb;
 
@@ -52,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
     String rowName;
     String tables;
     String selectName;
+
+    final int REQUEST_CODE_ADD=1;
+    final int REQUEST_CODE_EDIT=2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, addActivity.class);
 //Запускаем активность с ожиданием возврада данных  при ее методе finish ();
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, REQUEST_CODE_ADD);
             }
         });
 //обработка кнопки Поиск
@@ -128,20 +129,48 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //при получении данных с активности AddActivity начинаем складывать их  в стек данных(при помощи метода sqlQuery().insert)
-
+    //Получение и работа с данными из других активностей:
     @Override
-    protected void onActivityResult(int requestCode, int
-            resultCode, @Nullable Intent data) {
-        if (data == null) {
-            return;
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_CODE_ADD:
+
+                    if (data == null) {
+                        return;
+                    }
+                    String name = data.getStringExtra("name");
+                    String inn = data.getStringExtra("inn");
+                    int rb = data.getIntExtra("rb", 1);
+                    ContentValues contentValues = new ContentValues();
+                    new sqlQuery().insert(contentValues, rbMaterials,
+                            database, rb, name, inn, tblMat, tblMan, dataset, dataItem);
+                    break;
+                case REQUEST_CODE_EDIT:
+
+                    assert data != null;
+
+                    //поменять при программировании людей, сейчас обновляет только материалы
+                    String mid = data.getStringExtra("Id");
+                    String mname = data.getStringExtra("mName");
+
+                    new sqlQuery().update(database,mid,mname);
+                    new workWithDb().showAll(tblMat, dataset, database, dataItem, rbMaterials);
+                    String[] from = {"mName"};
+                    final int[] to = {R.id.mName_holder};
+                    new listViewAdapter().setAdapter(from, to, rbMaterials, listView, dataset, getApplicationContext());
+
+                    //Toast.makeText(this, "Данные из редактирования:" +data.getStringExtra("mName")+" "+ data.getStringExtra("Id"), Toast.LENGTH_SHORT).show();
+
+                    break;
+            }
+            // если вернулось не ОК
+        } else {
+            Toast.makeText(this, "Системная ошибка", Toast.LENGTH_SHORT).show();
         }
-        String name = data.getStringExtra("name");
-        String inn = data.getStringExtra("inn");
-        int rb = data.getIntExtra("rb", 1);
-        ContentValues contentValues = new ContentValues();
-        new sqlQuery().insert(contentValues, rbMaterials,
-                database, rb, name, inn, tblMat, tblMan, dataset, dataItem);
     }
 
     //Обработка нажатия на кнопки контекстного меню:
@@ -154,15 +183,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.show_advance:
                 Intent intent = new Intent(this, detailsActivity.class);
                 HashMap<String, String> dataedit = dataset.get(info.position);
-
-                Bundle bundle = new advanceActivity().showAdvance(tblMan,tblMat,tblSvod,dataedit,
-                        database,strings,j,getApplicationContext(),row,rowName,tables,selectName);
-
+                Bundle bundle = new getDataActivity().showAdvance(tblMan,tblMat,tblSvod,dataedit, database,strings,j,getApplicationContext(),row,rowName,tables,selectName);
                 j = bundle.getInt("j");
                 strings = bundle.getStringArray("strings");
-
                 intent.putExtra("count", j);
-
                 stringArray.addAll(Arrays.asList(strings).subList(0, j));
                 intent.putExtra("Name", stringArray);
                 startActivity(intent);
@@ -170,9 +194,21 @@ public class MainActivity extends AppCompatActivity {
                 j = 0;
                 return true;
 
-                //кнопка редактировать
+                //кнопка редактирования
             case R.id.edit:
 
+                Intent editIntent = new Intent(MainActivity.this, editActivity.class);
+                Bundle editBundle;
+                //получаем позицию и ID выбранного элемента
+                HashMap<String, String> editHashMap = dataset.get(info.position);
+                editBundle = new getDataActivity().getPosition(database,getApplicationContext(),editHashMap);
+                //наполняем этими данными Intent и отправляем его в editActivity
+
+                String mName = editBundle.getString("mName");
+                String mId = editBundle.getString("Id");
+                editIntent.putExtra("name", mName);
+                editIntent.putExtra("Id",mId);
+                startActivityForResult(editIntent,REQUEST_CODE_EDIT);
                 return true;
 
                 //кнопка удалить
@@ -189,12 +225,10 @@ public class MainActivity extends AppCompatActivity {
     public void deleteItem(HashMap<String, String> data) {
         if (rbMaterials.isChecked()) {
 
-            //Toast.makeText(getApplicationContext(),);
             new sqlQuery().del(database, "Id", tblMat, data, rbMaterials, getApplicationContext());
             new sqlQuery().svodDel(database, "Id", data, rbMaterials, getApplicationContext());
             new workWithDb().showAll(tblMat, dataset, database, data, rbMaterials);
             String[] from = {"mName"};
-
             final int[] to = {R.id.mName_holder};
             new listViewAdapter().setAdapter(from, to, rbMaterials, listView, dataset, getApplicationContext());
         } else {
@@ -206,9 +240,6 @@ public class MainActivity extends AppCompatActivity {
             new listViewAdapter().setAdapter(from, to, rbMaterials, listView, dataset, getApplicationContext());
         }
     }
-
-
-
 
     //Инициализация контекстного меню:
     @Override

@@ -1,4 +1,4 @@
-package com.builov.myvendorsapp;
+package com.builov.myvendorsapp.database;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 
-public class advanceActivity {
+public class getDataActivity {
 
     public Bundle showAdvance(String tblMan, String tblMat, String tblSvod,
                               HashMap<String, String> data, SQLiteDatabase database,
@@ -30,6 +30,7 @@ public class advanceActivity {
         //получаем длину таблицы
         long rowCount;
         rowCount = DatabaseUtils.queryNumEntries(database, tables);
+
         String str = Long.toString(rowCount);
         int i = Integer.parseInt(str);
 
@@ -46,4 +47,34 @@ public class advanceActivity {
         bundle.putSerializable("strings", strings);
         return bundle;
     }
+
+
+    //получаем позицию любого выбранного элемента в ListView
+    public Bundle getPosition(SQLiteDatabase database,Context context,HashMap<String, String> data){
+        Bundle bundle = new Bundle();
+        String name="";
+        String id="";
+        //Toast.makeText(context, data.get("Id"),Toast.LENGTH_SHORT).show();
+        //добавить выбор таблицы, сейчас только materials
+        String query = "SELECT * FROM materials WHERE Id = "+ data.get("Id");
+        Cursor cursor = database.rawQuery(query,null);
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()){
+
+             id = cursor.getString(0);
+             name = cursor.getString(1);
+
+            cursor.moveToNext();
+        }
+        cursor.close();
+        bundle.putString("Id",id);
+        bundle.putString("mName",name);
+        //bundle.getString("mName",name);
+        //Toast.makeText(context, "text from getDataActivity = " + bundle.getString("mName"),Toast.LENGTH_SHORT).show();
+
+        return bundle;
+    }
+
+
 }

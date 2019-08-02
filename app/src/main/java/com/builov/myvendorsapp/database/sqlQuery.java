@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.strictmode.SqliteObjectLeakedViolation;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,7 +68,21 @@ public class sqlQuery {
         }
     }
 
-    public void update() {
+    public void update(SQLiteDatabase database,String id,String name) {
+
+        ContentValues cv = new ContentValues();
+
+
+        //cv.put("id", id);
+        cv.put("mName", name);
+        String query = "SELECT * FROM materials";
+        Cursor cursor = database.rawQuery(query, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            database.update("materials",cv,"id = "+ id,null);
+            cursor.moveToNext();
+        } cursor.close();
+
     }
 
 }

@@ -1,5 +1,4 @@
 package com.builov.myvendorsapp.adapter;
-import android.content.ContentValues;
 import android.content.Context;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -15,12 +14,12 @@ public class listViewAdapter {
 //Создаем адаптер
         if (rbMaterials.isChecked()) {
             SimpleAdapter adapter = new SimpleAdapter(context,
-                    dataset, R.layout.item_materials_holder, from, to);
+                    dataset, R.layout.materials_item, from, to);
             adapter.notifyDataSetChanged();
             listView.setAdapter(adapter);
         } else {
             SimpleAdapter adapter = new SimpleAdapter(context,
-                    dataset, R.layout.item_manufacturers_holder, from, to);
+                    dataset, R.layout.manufacturers_item, from, to);
             adapter.notifyDataSetChanged();
             listView.setAdapter(adapter);
         }
