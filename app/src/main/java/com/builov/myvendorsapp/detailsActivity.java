@@ -24,13 +24,10 @@ public class detailsActivity extends AppCompatActivity {
         assert bundle != null;
 
         int i = bundle.getInt( "count");
-        Toast.makeText(getApplicationContext(),Integer.toString(i),Toast.LENGTH_SHORT).show();
         for (int a=0;a<i; a++){
-            stringArray = (ArrayList<String>)
-                    getIntent().getSerializableExtra("Name");
-            //Toast.makeText(getApplicationContext(),stringArray.get(a),Toast.LENGTH_SHORT).show();
+            stringArray = (ArrayList<String>) getIntent().getSerializableExtra("Name");
         }
-        //new detailAdapter().setAdapter(stringArray,getApplicationContext(),detailListView);
+        new detailAdapter().setAdapter(stringArray,getApplicationContext(),detailListView);
         back = findViewById(R.id.buttonBack);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,8 +35,5 @@ public class detailsActivity extends AppCompatActivity {
                 finish();//
             }
         });
-    }
-    public void showDetails(SQLiteDatabase database, String query,
-                            TextView tvtest){
     }
 }

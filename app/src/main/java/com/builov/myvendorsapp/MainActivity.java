@@ -1,6 +1,7 @@
 package com.builov.myvendorsapp;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -55,18 +56,20 @@ public class MainActivity extends AppCompatActivity {
         initUI();
         registerForContextMenu(listView);
         mDBHelper = new DataBaseHelper(this);
+
         try {
             mDBHelper.updateDataBase();
         } catch (IOException mIOException) {
             throw new Error("Невозможно обновить БД");
         }
+
         database = mDBHelper.getWritableDatabase();
+
 //Отображение данных при открытии приложения:
         new workWithDb().showAll(tblMat, dataset, database, dataItem, rbMaterials);
 
         String[] from = {"mName"};
         final int[] to = {R.id.mName_holder};
-
         new listViewAdapter().setAdapter(from, to, rbMaterials, listView, dataset, getApplicationContext());
 
         rbMaterials.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -76,8 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     new workWithDb().showAll(tblMat, dataset, database, dataItem, rbMaterials);
                     String[] from = {"mName"};
                     int[] to = {R.id.mName_holder};
-                    new listViewAdapter().setAdapter(from, to,
-                            rbMaterials, listView, dataset, getApplicationContext());
+                    new listViewAdapter().setAdapter(from, to, rbMaterials, listView, dataset, getApplicationContext());
                 } else {
                     new workWithDb().showAll(tblMan, dataset, database, dataItem, rbMaterials);
                     String[] from = {"Name", "INN"};
@@ -100,9 +102,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (etSearch.getHint().toString().equals("Поиск")) {
-                    Toast toast =
-                            Toast.makeText(getApplicationContext(), "Введите значение поиска",
-                                    Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(), "Введите значение поиска", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }
@@ -125,53 +125,35 @@ public class MainActivity extends AppCompatActivity {
                 database, rb, name, inn, tblMat, tblMan, dataset, dataItem);
     }
 
-    //инициализация UI элементов:
-    public void initUI() {
-        btnAdd = findViewById(R.id.btnAdd);
-        rbMaterials = findViewById(R.id.radioMat);
-        btnSearch = findViewById(R.id.btnSearch);
-        etSearch = findViewById(R.id.etSearch);
-        listView = findViewById(R.id.listHolder);
-    }
-
-    //создание контекстного меню:
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.context_menu, menu);
-    }
-
     //Обработка нажатия на кнопки контекстного меню:
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info =
                 (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
-//кнопка детализация
+            //кнопка детализация
             case R.id.show_advance:
                 Intent intent = new Intent(this, detailsActivity.class);
                 HashMap<String, String> dataedit = dataset.get(info.position);
                 advanceItem(dataedit);
-               // intent.putExtra("count", j);
-
-                //Toast.makeText(getApplicationContext(),Integer.toString(j),Toast.LENGTH_SHORT).show();
+                intent.putExtra("count", j);
                 stringArray.addAll(Arrays.asList(strings).subList(0, j));
                 intent.putExtra("count", j);
                 intent.putExtra("Name", stringArray);
-                //startActivity(intent);
+                startActivity(intent);
                 stringArray.clear();
                 j = 0;
                 return true;
-//кнопка редактировать
+
+                //кнопка редактировать
             case R.id.edit:
 
                 return true;
-//кнопка удалить
+
+                //кнопка удалить
             case R.id.delete:
-                HashMap<String, String> datadelet =
-                        dataset.get(info.position);
+
+                HashMap<String, String> datadelet = dataset.get(info.position);
                 deleteItem(datadelet);
                 return true;
             default:
@@ -182,15 +164,18 @@ public class MainActivity extends AppCompatActivity {
     //работа с удалением элементов
     public void deleteItem(HashMap<String, String> data) {
         if (rbMaterials.isChecked()) {
-            new sqlQuery().del(database, "Id", tblMat, data, rbMaterials);
-            new sqlQuery().svodDel(database, "Id", tblMat, data, rbMaterials,getApplicationContext());
+
+            //Toast.makeText(getApplicationContext(),);
+            new sqlQuery().del(database, "Id", tblMat, data, rbMaterials, getApplicationContext());
+            new sqlQuery().svodDel(database, "Id", data, rbMaterials, getApplicationContext());
             new workWithDb().showAll(tblMat, dataset, database, data, rbMaterials);
             String[] from = {"mName"};
+
             final int[] to = {R.id.mName_holder};
             new listViewAdapter().setAdapter(from, to, rbMaterials, listView, dataset, getApplicationContext());
         } else {
-            new sqlQuery().del(database, "id", tblMan, data, rbMaterials);
-            new sqlQuery().svodDel(database, "id", tblMan, data, rbMaterials,getApplicationContext());
+            new sqlQuery().del(database, "id", tblMan, data, rbMaterials, getApplicationContext());
+            new sqlQuery().svodDel(database, "id", data, rbMaterials, getApplicationContext());
             new workWithDb().showAll(tblMan, dataset, database, data, rbMaterials);
             String[] from = {"Name", "INN"};
             final int[] to = {R.id.mName_holder};
@@ -215,12 +200,26 @@ public class MainActivity extends AppCompatActivity {
 
         while (!cursor.isAfterLast()) {
             strings[j] = cursor.getString(0);
-            Toast.makeText(getApplicationContext(),"Work",Toast.LENGTH_SHORT).show();
             j = j + 1;
             cursor.moveToNext();
         }
         cursor.close();
     }
-}
 
-//Integer.toString(i)
+    //Инициализация контекстного меню:
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    //инициализация UI элементов:
+    public void initUI() {
+        btnAdd = findViewById(R.id.btnAdd);
+        rbMaterials = findViewById(R.id.radioMat);
+        btnSearch = findViewById(R.id.btnSearch);
+        etSearch = findViewById(R.id.etSearch);
+        listView = findViewById(R.id.listHolder);
+    }
+}
