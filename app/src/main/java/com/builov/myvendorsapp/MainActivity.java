@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<HashMap<String, String>> dataset = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> dataItem;
     ArrayList<String> stringArray = new ArrayList<String>();
+
     private RadioButton rbMaterials;
     private Button btnAdd;
     private Button btnSearch;
@@ -77,35 +78,39 @@ public class MainActivity extends AppCompatActivity {
         database = mDBHelper.getWritableDatabase();
 
 //Отображение данных при открытии приложения:
-        new workWithDb().showAll(tblMat, dataset, database, dataItem, rbMaterials);
+        new workWithDb().showAll(getApplicationContext(),dataset, database, rb);
 
         String[] from = {"mName"};
         final int[] to = {R.id.mName_holder};
-        new listViewAdapter().setAdapter(from, to, rbMaterials, listView, dataset, getApplicationContext());
+        new listViewAdapter().setAdapter(from, to, rb, listView, dataset, getApplicationContext());
 
         rbMaterials.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+               //если выбраны материалы
                 if (rbMaterials.isChecked()) {
                     row = "Id";
                     rowName = "mat.Id";
                     tables = tblMat;
                     selectName = "Name";
                     rb = "1";
-                    new workWithDb().showAll(tblMat, dataset, database, dataItem, rbMaterials);
+                    new workWithDb().showAll(getApplicationContext(),dataset, database, rb);
                     String[] from = {"mName"};
                     int[] to = {R.id.mName_holder};
-                    new listViewAdapter().setAdapter(from, to, rbMaterials, listView, dataset, getApplicationContext());
+                    new listViewAdapter().setAdapter(from, to, rb, listView, dataset, getApplicationContext());
+
+                    //если выбраны производители
                 } else {
                     row = "id";
                     rowName = "man.id";
                     tables = tblMan;
                     selectName = "mName";
                     rb = "2";
-                    new workWithDb().showAll(tblMan, dataset, database, dataItem, rbMaterials);
+                    new workWithDb().showAll(getApplicationContext(),dataset, database, rb);
                     String[] from = {"Name", "INN"};
                     int[] to = {R.id.mName_holder, R.id.mINN_Holder};
-                    new listViewAdapter().setAdapter(from, to, rbMaterials, listView, dataset, getApplicationContext());
+                    new listViewAdapter().setAdapter(from, to, rb, listView, dataset, getApplicationContext());
                 }
             }
         });
@@ -123,58 +128,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if (!etSearch.getText().toString().equals("")){
+
                 String query = "SELECT * FROM materials WHERE mName=" + "'" + etSearch.getText().toString() + "'";
                 Cursor crsr = database.rawQuery(query, null);
                 crsr.moveToFirst();
                 //Пробегаем по всем клиентам
                 while (!crsr.isAfterLast()) {
-                    Toast.makeText(getApplicationContext(), crsr.getString(0), Toast.LENGTH_SHORT).show();
+                    String answer = crsr.getString(0);
                     crsr.moveToNext();
+                    Toast.makeText(getApplicationContext(),"ID искомого элемента= "+answer, Toast.LENGTH_SHORT).show();
                 }
                 crsr.close();
-
-                // }
+                } else Toast.makeText(getApplicationContext(),"Заполните строку поиска", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    //Получение и работа с данными из других активностей:
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
-
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case REQUEST_CODE_ADD:
-
-                    if (data == null) {
-                        return;
-                    }
-                    String name = data.getStringExtra("name");
-                    String inn = data.getStringExtra("inn");
-                    int rb = data.getIntExtra("rb", 1);
-                    ContentValues contentValues = new ContentValues();
-                    new sqlQuery().insert(contentValues, rbMaterials,
-                            database, rb, name, inn, tblMat, tblMan, dataset, dataItem);
-                    break;
-                case REQUEST_CODE_EDIT:
-
-                    assert data != null;
-
-                    //поменять при программировании людей, сейчас обновляет только материалы
-                    String mid = data.getStringExtra("Id");
-                    String mname = data.getStringExtra("mName");
-                    new sqlQuery().update(database, mid, mname);
-                    new workWithDb().showAll(tblMat, dataset, database, dataItem, rbMaterials);
-                    String[] from = {"mName"};
-                    final int[] to = {R.id.mName_holder};
-                    new listViewAdapter().setAdapter(from, to, rbMaterials, listView, dataset, getApplicationContext());
-                    break;
-            }
-            // если вернулось не ОК
-        } else {
-            Toast.makeText(this, "Системная ошибка", Toast.LENGTH_SHORT).show();
-        }
     }
 
     //Обработка нажатия на кнопки контекстного меню:
@@ -238,6 +206,8 @@ public class MainActivity extends AppCompatActivity {
                 editIntent.putExtra("name", mName);
                 editIntent.putExtra("Id", mId);
                 editIntent.putExtra("INN", mINN);
+                editIntent.putExtra("rb",rb);
+
 
                 //вызываем активность editActivity, передаем в нее наши данные внутри intent и ждем от нее ответ.
                 //полученный ответ обрабатываем в onActivityResult под ключем REQUEST_CODE_EDIT
@@ -247,32 +217,83 @@ public class MainActivity extends AppCompatActivity {
 //кнопка удалить
             case R.id.delete:
                 HashMap<String, String> datadelet = dataset.get(info.position);
-                deleteItem(datadelet);
+   //             deleteItem(datadelet);
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
     }
 
+    //Получение и работа с данными из других активностей:
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        //rb="";
+        String[] from = {"mName"};
+        final int[] to = {R.id.mName_holder};
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+
+//обрабатываем полученные данные из addActivity
+                case REQUEST_CODE_ADD:
+
+                    if (data == null) {return;}
+                    String name = data.getStringExtra("name");
+                    String inn = data.getStringExtra("inn");
+                    rb = data.getStringExtra("rb");
+                    ContentValues contentValues = new ContentValues();
+                    new sqlQuery().insert(contentValues,database,rb,name,inn,dataset,getApplicationContext());
+                    rbMaterials.setChecked(true);
+                    new workWithDb().showAll(getApplicationContext(),dataset, database, rb);
+                    new listViewAdapter().setAdapter(from, to, rb, listView, dataset, getApplicationContext());
+                    break;
+
+//обрабатываем полученные данные из editActivity
+                case REQUEST_CODE_EDIT:
+                    //данные из активности editActivity кладутся в Intent data
+                    //проверяем чтобы он не был пустым
+                    assert data != null;
+
+                    //извлекаем данные из data
+                    String resultId = data.getStringExtra("id");//ИД
+                    String resultName = data.getStringExtra("mName");//ИМЯ
+                    String resultINN = data.getStringExtra("INN");//ИНН
+                    rb = data.getStringExtra("rb");
+                    //обновляем данные
+                    //вызываем sqlQuery().update в который передаем базу данных, ИД, ИМЯ, ИНН
+                    new sqlQuery().update(database, resultId, resultName, resultINN,getApplicationContext());
+
+                    //обновляем данные в listView
+                    new workWithDb().showAll(getApplicationContext(),dataset, database, rb);
+                    //new listViewAdapter().setAdapter(from, to, rb, listView, dataset, getApplicationContext());
+                    break;
+            }
+            // если вернулось не ОК
+        } else {
+            Toast.makeText(this, "Системная ошибка", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     //работа с удалением элементов
-    public void deleteItem(HashMap<String, String> data) {
+    /*public void deleteItem(HashMap<String, String> data) {
         if (rbMaterials.isChecked()) {
 
             new sqlQuery().del(database, "Id", tblMat, data, rbMaterials, getApplicationContext());
             new sqlQuery().svodDel(database, "Id", data, rbMaterials, getApplicationContext());
-            new workWithDb().showAll(tblMat, dataset, database, data, rbMaterials);
+            new workWithDb().showAll(dataset, database, rbMaterials,rb);
             String[] from = {"mName"};
             final int[] to = {R.id.mName_holder};
             new listViewAdapter().setAdapter(from, to, rbMaterials, listView, dataset, getApplicationContext());
         } else {
             new sqlQuery().del(database, "id", tblMan, data, rbMaterials, getApplicationContext());
             new sqlQuery().svodDel(database, "id", data, rbMaterials, getApplicationContext());
-            new workWithDb().showAll(tblMan, dataset, database, data, rbMaterials);
+            new workWithDb().showAll(dataset, database, rbMaterials,rb);
             String[] from = {"Name", "INN"};
             final int[] to = {R.id.mName_holder};
             new listViewAdapter().setAdapter(from, to, rbMaterials, listView, dataset, getApplicationContext());
         }
-    }
+    }*/
 
     //Инициализация контекстного меню:
     @Override

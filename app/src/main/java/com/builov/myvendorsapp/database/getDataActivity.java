@@ -80,9 +80,7 @@ public class getDataActivity {
         bundle.putString("Id", id);
         bundle.putString("mName", name);
         if (!inn.equals("")) {
-            bundle.putString("mINN", inn);
-            Toast.makeText(context, "text from getDataActivity = " + bundle.getString("mINN"), Toast.LENGTH_LONG).show();
-        }
+            bundle.putString("mINN", inn); }
         return bundle;
     }
 

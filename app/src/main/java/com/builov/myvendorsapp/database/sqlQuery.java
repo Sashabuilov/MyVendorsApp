@@ -4,23 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.strictmode.SqliteObjectLeakedViolation;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.builov.myvendorsapp.database.workWithDb;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class sqlQuery {
-    String mat;
-    String man;
-    String svod;
-    ArrayList<HashMap<String, String>> svodDataSet = new
-            ArrayList<HashMap<String, String>>();
+    ArrayList<HashMap<String, String>> svodDataSet = new ArrayList<HashMap<String, String>>();
 
     public void del(SQLiteDatabase database, String condition, String table, HashMap<String, String> data, RadioButton rbMaterials, Context context) {
 
@@ -40,7 +31,7 @@ public class sqlQuery {
         while (!cursor.isAfterLast()) {
             HashMap<String, String> svodData = new HashMap<String,
                     String>();
-            svodData.put("_id",cursor.getString(0));
+            svodData.put("_id", cursor.getString(0));
             svodData.put("manufacturers_id", cursor.getString(1));
             svodData.put("materials_id", cursor.getString(2));
             cursor.moveToNext();
@@ -52,37 +43,75 @@ public class sqlQuery {
             database.delete("manufacturers_materials", "manufacturers_id=" + data.get(condition), null);
     }
 
-    public void insert(ContentValues contentValues, RadioButton rbMaterials, SQLiteDatabase database, int rb, String name, String inn, String tblMat, String tblMan, ArrayList<HashMap<String, String>> dataset, HashMap<String, String> dataItem) {
-        if (rb == 1) {
+    public void insert(ContentValues contentValues,SQLiteDatabase database, String rb, String name, String inn, ArrayList<HashMap<String, String>> dataset, Context context) {
+
+
+        if (rb.equals("1")) {
             contentValues.put("mName", name);
             database.insert("materials", null, contentValues);
-            new workWithDb().showAll(tblMat, dataset, database,
-                    dataItem, rbMaterials);
+            new workWithDb().showAll(context,dataset, database, rb);
+
+            //Toast.makeText(context, "1", Toast.LENGTH_LONG).show();
         }
-        if (rb == 2) {
+        if (rb.equals("2")) {
             contentValues.put("name", name);
             contentValues.put("INN", inn);
             database.insert("manufacturers", null, contentValues);
-            new workWithDb().showAll(tblMan, dataset, database,
-                    dataItem, rbMaterials);
+            new workWithDb().showAll(context,dataset, database, rb);
+
+            //Toast.makeText(context, 1, Toast.LENGTH_LONG).show();
         }
     }
 
-    public void update(SQLiteDatabase database,String id,String name) {
+    public void update(SQLiteDatabase database, String id, String name, String inn, Context context) {
+        String query = "";
+        String table = "";
+        String select= "";
 
+        //создаем контейнер с данными
         ContentValues cv = new ContentValues();
 
+        //если ИНН пустое, значит добавляем в таблицу materials, если ИНН не пустое то в таблицу manufacturers
+        //создаем строку запроса обновления в базу данных
 
-        //cv.put("id", id);
-        cv.put("mName", name);
-        String query = "SELECT * FROM materials";
+        if (!inn.equals("")) {
+
+            //наполняем cv полученными ИД, ИМЯ
+            cv.put("id", id);
+            cv.put("INN", inn);
+            cv.put("Name", name);
+            select = "Id=";
+            table = "manufacturers";
+            query = "SELECT * FROM manufacturers";
+           // Toast.makeText(context, query, Toast.LENGTH_LONG).show();
+        }
+
+        if (inn.equals("")) {
+
+            //наполняем cv полученными ИД, ИМЯ
+            cv.put("Id", id);
+            cv.put("mName", name);
+            select="id=";
+            table = "materials";
+            query = "SELECT * FROM materials";
+            //Toast.makeText(context, query, Toast.LENGTH_LONG).show();
+        }
+
+        //выполняем запрос описаный выше
         Cursor cursor = database.rawQuery(query, null);
+
+        //переходим к первой записи БД
         cursor.moveToFirst();
+
+        //пока не последняя запись делаем запросы
         while (!cursor.isAfterLast()) {
-            database.update("materials",cv,"id = "+ id,null);
+
+            //обновляем элемент в таблице table в котором id(ID)=id
+            database.update(table, cv, select + id, null);
             cursor.moveToNext();
-        } cursor.close();
+        }
+        cursor.close();
 
+        // данные в таблице обновлены, осталось их отобразить. Возвращаемся в MainActivity.
     }
-
 }

@@ -16,6 +16,7 @@ public class addActivity extends AppCompatActivity {
     EditText etName;
     EditText etINN;
     EditText etchange;
+    String rb="1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,19 +26,17 @@ public class addActivity extends AppCompatActivity {
         setTitle("Добавление");
         rbMater.isChecked();
         etINN.setEnabled(false);
-//etINN.setFocusable(false);
         etINN.setText("Не доступно");
+
         rbMater.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton
                                                  buttonView, boolean isChecked) {
                 if (rbMater.isChecked()) {
-                    etINN.setEnabled(false);
-//etINN.setFocusable(false);
+                    etINN.setEnabled(false);rb="1";
                     etINN.setText("Не доступно");
                 } else {
-                    etINN.setEnabled(true);
-// etINN.setFocusable(true);
+                    etINN.setEnabled(true);rb="2";
                     etINN.setText("");
                 }
             }
@@ -45,12 +44,10 @@ public class addActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int rb = 1;
-                if (rbManuf.isChecked()) rb = 2;
                 Intent intent = new Intent();
                 intent.putExtra("name", etName.getText().toString());
                 intent.putExtra("inn", etINN.getText().toString());
-                //intent.putExtra("rb", rb);
+                intent.putExtra("rb", rb);
                 setResult(RESULT_OK, intent);
                 finish();
             }
