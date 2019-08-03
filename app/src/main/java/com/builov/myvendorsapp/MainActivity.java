@@ -50,16 +50,21 @@ public class MainActivity extends AppCompatActivity {
     String rowName;
     String tables;
     String selectName;
+    String rb;
 
-    final int REQUEST_CODE_ADD=1;
-    final int REQUEST_CODE_EDIT=2;
+    final int REQUEST_CODE_ADD = 1;
+    final int REQUEST_CODE_EDIT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initUI();
-        row="Id";rowName="mat.Id";tables=tblMan;selectName="Name";
+        row = "Id";
+        rowName = "mat.Id";
+        tables = tblMat;
+        selectName = "Name";
+        rb = "1";
         registerForContextMenu(listView);
         mDBHelper = new DataBaseHelper(this);
 
@@ -82,13 +87,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (rbMaterials.isChecked()) {
-                    row="Id";rowName="mat.Id";tables=tblMan;selectName="Name";
+                    row = "Id";
+                    rowName = "mat.Id";
+                    tables = tblMat;
+                    selectName = "Name";
+                    rb = "1";
                     new workWithDb().showAll(tblMat, dataset, database, dataItem, rbMaterials);
                     String[] from = {"mName"};
                     int[] to = {R.id.mName_holder};
                     new listViewAdapter().setAdapter(from, to, rbMaterials, listView, dataset, getApplicationContext());
                 } else {
-                    row="id";rowName="man.id";tables=tblMat;selectName="mName";
+                    row = "id";
+                    rowName = "man.id";
+                    tables = tblMan;
+                    selectName = "mName";
+                    rb = "2";
                     new workWithDb().showAll(tblMan, dataset, database, dataItem, rbMaterials);
                     String[] from = {"Name", "INN"};
                     int[] to = {R.id.mName_holder, R.id.mINN_Holder};
@@ -109,22 +122,18 @@ public class MainActivity extends AppCompatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*if (etSearch.getHint().toString().equals("Поиск")) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Введите значение поиска", Toast.LENGTH_SHORT);
-                    toast.show();
-                } else
-                {*/
-                   // new workWithDb().showAll(tblMat,dataset,database,dataItem,rbMaterials);
-                String query = "SELECT * FROM materials WHERE mName="+"'"+etSearch.getText().toString()+"'" ;
-               Cursor crsr = database.rawQuery(query,null);
+
+                String query = "SELECT * FROM materials WHERE mName=" + "'" + etSearch.getText().toString() + "'";
+                Cursor crsr = database.rawQuery(query, null);
                 crsr.moveToFirst();
                 //Пробегаем по всем клиентам
                 while (!crsr.isAfterLast()) {
-                    Toast.makeText(getApplicationContext(),crsr.getString(0),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), crsr.getString(0), Toast.LENGTH_SHORT).show();
                     crsr.moveToNext();
-                } crsr.close();
+                }
+                crsr.close();
 
-               // }
+                // }
             }
         });
     }
@@ -132,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
     //Получение и работа с данными из других активностей:
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
 
 
         if (resultCode == RESULT_OK) {
@@ -156,15 +164,11 @@ public class MainActivity extends AppCompatActivity {
                     //поменять при программировании людей, сейчас обновляет только материалы
                     String mid = data.getStringExtra("Id");
                     String mname = data.getStringExtra("mName");
-
-                    new sqlQuery().update(database,mid,mname);
+                    new sqlQuery().update(database, mid, mname);
                     new workWithDb().showAll(tblMat, dataset, database, dataItem, rbMaterials);
                     String[] from = {"mName"};
                     final int[] to = {R.id.mName_holder};
                     new listViewAdapter().setAdapter(from, to, rbMaterials, listView, dataset, getApplicationContext());
-
-                    //Toast.makeText(this, "Данные из редактирования:" +data.getStringExtra("mName")+" "+ data.getStringExtra("Id"), Toast.LENGTH_SHORT).show();
-
                     break;
             }
             // если вернулось не ОК
@@ -179,39 +183,68 @@ public class MainActivity extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo info =
                 (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
-            //кнопка детализация
+//кнопка детализация
             case R.id.show_advance:
+
+                //подготовливаем переход на таблицу деталки
                 Intent intent = new Intent(this, detailsActivity.class);
+
+                //получаем позицию нажатого элемента в таблице
                 HashMap<String, String> dataedit = dataset.get(info.position);
-                Bundle bundle = new getDataActivity().showAdvance(tblMan,tblMat,tblSvod,dataedit, database,strings,j,getApplicationContext(),row,rowName,tables,selectName);
+
+                //запускаем getDataActivity.showAdvance и получаем обьект Bundle
+                Bundle bundle = new getDataActivity().showAdvance(tblMan, tblMat, tblSvod, dataedit,
+                        database, strings, j, getApplicationContext(), row, rowName, tables, selectName);
+
+                //извлекаем длину таблицы из полученного обьекта Bundle
                 j = bundle.getInt("j");
+
+                //извлекаем все элементы таблицы (массив Strings[j]) из полученного обьекта Bundle
                 strings = bundle.getStringArray("strings");
-                intent.putExtra("count", j);
+
+                //Кладем в массив строк состоящий из j элементов, все значения из strings[j]
                 stringArray.addAll(Arrays.asList(strings).subList(0, j));
+
+                //кладем в intent колличество элементов в таблице
+                intent.putExtra("count", j);
+
+                //кладем в intent массив строк из таблицы
                 intent.putExtra("Name", stringArray);
+
+                //стартуем intent
                 startActivity(intent);
                 stringArray.clear();
                 j = 0;
                 return true;
 
-                //кнопка редактирования
+//кнопка редактирования
             case R.id.edit:
 
+                //подготовливаем переход на таблицу деталки
                 Intent editIntent = new Intent(MainActivity.this, editActivity.class);
-                Bundle editBundle;
-                //получаем позицию и ID выбранного элемента
-                HashMap<String, String> editHashMap = dataset.get(info.position);
-                editBundle = new getDataActivity().getPosition(database,getApplicationContext(),editHashMap);
-                //наполняем этими данными Intent и отправляем его в editActivity
 
+                //получаем позицию выбранного элемента
+                HashMap<String, String> editHashMap = dataset.get(info.position);
+
+                //запускаем getDataActivity.getPosition и получаем обьект Bundle наполненный данными
+                Bundle editBundle = new getDataActivity().getPosition(database, getApplicationContext(), editHashMap, tables, row, rb);
+
+                //получаем из Bundle три переменные ИМЯ, ИД, ИНН
                 String mName = editBundle.getString("mName");
                 String mId = editBundle.getString("Id");
+                String mINN = editBundle.getString("mINN");
+
+                //наполняем этими переменными editIntent
                 editIntent.putExtra("name", mName);
-                editIntent.putExtra("Id",mId);
-                startActivityForResult(editIntent,REQUEST_CODE_EDIT);
+                editIntent.putExtra("Id", mId);
+                editIntent.putExtra("INN", mINN);
+
+                //вызываем активность editActivity, передаем в нее наши данные внутри intent и ждем от нее ответ.
+                //полученный ответ обрабатываем в onActivityResult под ключем REQUEST_CODE_EDIT
+                startActivityForResult(editIntent, REQUEST_CODE_EDIT);
                 return true;
 
-                //кнопка удалить
+//кнопка удалить
             case R.id.delete:
                 HashMap<String, String> datadelet = dataset.get(info.position);
                 deleteItem(datadelet);
@@ -248,6 +281,7 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.context_menu, menu);
     }
+
     //инициализация UI элементов:
     public void initUI() {
         btnAdd = findViewById(R.id.btnAdd);

@@ -50,29 +50,39 @@ public class getDataActivity {
 
 
     //получаем позицию любого выбранного элемента в ListView
-    public Bundle getPosition(SQLiteDatabase database,Context context,HashMap<String, String> data){
+    public Bundle getPosition(SQLiteDatabase database, Context context, HashMap<String, String> data, String tables, String row, String radioButton) {
+        //объект bundle который будем возвращать
         Bundle bundle = new Bundle();
-        String name="";
-        String id="";
-        //Toast.makeText(context, data.get("Id"),Toast.LENGTH_SHORT).show();
-        //добавить выбор таблицы, сейчас только materials
-        String query = "SELECT * FROM materials WHERE Id = "+ data.get("Id");
-        Cursor cursor = database.rawQuery(query,null);
+        //инициализируем переменные
+        String id = ""; //ИД
+        String name = "";//ИМЯ
+        String inn = "";//ИНН
+
+
+        if (radioButton.equals("1")) radioButton = "Id";
+        else radioButton = "id";
+
+        //Выбираем все из таблицы tables(значение которой нужно получить из MainActiity) ID=row
+
+        String query = "SELECT * FROM " + tables + " WHERE " + radioButton + " = " + data.get(row);
+        //Toast.makeText(context,query,Toast.LENGTH_LONG).show();
+
+        Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
 
-        while (!cursor.isAfterLast()){
-
-             id = cursor.getString(0);
-             name = cursor.getString(1);
-
+        while (!cursor.isAfterLast()) {
+            id = cursor.getString(0);
+            name = cursor.getString(1);
+            if (radioButton.equals("id")) inn = cursor.getString(2);
             cursor.moveToNext();
         }
         cursor.close();
-        bundle.putString("Id",id);
-        bundle.putString("mName",name);
-        //bundle.getString("mName",name);
-        //Toast.makeText(context, "text from getDataActivity = " + bundle.getString("mName"),Toast.LENGTH_SHORT).show();
-
+        bundle.putString("Id", id);
+        bundle.putString("mName", name);
+        if (!inn.equals("")) {
+            bundle.putString("mINN", inn);
+            Toast.makeText(context, "text from getDataActivity = " + bundle.getString("mINN"), Toast.LENGTH_LONG).show();
+        }
         return bundle;
     }
 

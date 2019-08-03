@@ -58,7 +58,7 @@
                 android:textStyle="bold|italic" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/et_edit_INN"
                 style="@android:style/Widget.AutoCompleteTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

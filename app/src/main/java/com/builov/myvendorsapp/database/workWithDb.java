@@ -12,6 +12,8 @@ public class workWithDb {
     public void showAll(String table, ArrayList<HashMap<String, String>> dataset,
                         SQLiteDatabase database, HashMap<String, String> dataItem, RadioButton rbMaterials) {
         dataset.clear();
+        if (rbMaterials.isChecked()) table="materials";
+        else table="manufacturers";
         String query = "SELECT * FROM " + " " + table;
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();

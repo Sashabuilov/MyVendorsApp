@@ -48,11 +48,9 @@ public class addActivity extends AppCompatActivity {
                 int rb = 1;
                 if (rbManuf.isChecked()) rb = 2;
                 Intent intent = new Intent();
-                intent.putExtra("name",
-                        etName.getText().toString());
-                intent.putExtra("inn",
-                        etINN.getText().toString());
-                intent.putExtra("rb", rb);
+                intent.putExtra("name", etName.getText().toString());
+                intent.putExtra("inn", etINN.getText().toString());
+                //intent.putExtra("rb", rb);
                 setResult(RESULT_OK, intent);
                 finish();
             }
