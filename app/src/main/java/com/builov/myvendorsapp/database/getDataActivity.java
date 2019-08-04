@@ -24,6 +24,8 @@ public class getDataActivity {
                 "AND mat.Id=svod.materials_id " +
                 "AND " + rowName + "=" + data.get(row);
 
+        Toast.makeText(context,query,Toast.LENGTH_SHORT).show();
+
         Cursor cursor = database.rawQuery(query, null);
 
 

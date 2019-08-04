@@ -64,31 +64,6 @@ public class editActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
-
-
-
-
-        addDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentAdd = new Intent(editActivity.this,addAdvanceActivity.class);
-
-            }
-        });
-
-
-
-
-
-
-
-
         //обработка кнопки "Отмена"
         btn_edit_cancel.setOnClickListener(new View.OnClickListener() {
             @Override

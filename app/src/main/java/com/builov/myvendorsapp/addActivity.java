@@ -1,5 +1,6 @@
 package com.builov.myvendorsapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,20 +11,38 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class addActivity extends AppCompatActivity {
     Button add;
     Button btn_add_advance;
     Button btn_cancel;
     EditText etName;
     EditText etINN;
-    String rb="1";
+    String rb="";
     TextView tv_Choise;
     ListView addListView;
-
+    Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new);
+
+        mContext = this.getApplicationContext();
+
+
+
+        final ArrayList<HashMap<String,String>> dataset = (ArrayList<HashMap<String,String>>) getIntent().getSerializableExtra("dataset");
+        final HashMap<String,String> dataItem = (HashMap<String,String>) getIntent().getSerializableExtra("datItem");
+        final String[] strings = getIntent().getStringArrayExtra("strings");
+        final String j = getIntent().getStringExtra("j");
+
+        final String row = getIntent().getStringExtra("row");
+        final String rowName = getIntent().getStringExtra("rowName");
+        final String tables = getIntent().getStringExtra("tables");
+        final String selectName = getIntent().getStringExtra("selectName");
+
         initUI();
         setTitle("Добавление");
         etINN.setEnabled(false);
@@ -46,7 +65,21 @@ public class addActivity extends AppCompatActivity {
         btn_add_advance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Кнопка ДОБАВИТЬ",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),"Кнопка ДОБАВИТЬ",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(addActivity.this, addAdvanceActivity.class);
+                intent.putExtra("rb", rb);
+
+                intent.putExtra("dataset",dataset);
+                intent.putExtra("dataItem", dataItem);
+                intent.putExtra("strings",strings);
+                intent.putExtra("j",j);
+
+                intent.putExtra("row",row);
+                intent.putExtra("rowName",rowName);
+                intent.putExtra("tables",tables);
+                intent.putExtra("selectName",selectName);
+
+                startActivity(intent);
 
             }
         });

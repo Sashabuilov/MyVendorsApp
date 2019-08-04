@@ -116,22 +116,49 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+
+
+
+
 //Обработка кнопки Добавить
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, addActivity.class);
 //Запускаем активность с ожиданием возврада данных  при ее методе finish ();
+
+
+
+
+
+
+                //Toast.makeText(getApplicationContext(),dataItem.get("Id"),Toast.LENGTH_SHORT).show();
+
+
                 intent.putExtra("rb",rb);
 
-                Bundle bundle = new getDataActivity().showAdvance(tblMan, tblMat, tblSvod, dataItem,
-                        database, strings, j, getApplicationContext(), row, rowName, tables, selectName);
+                dataset.clear();
+                new workWithDb().showAll(getApplicationContext(),dataset, database, rb);
 
-                 Toast.makeText(getApplicationContext(),bundle.getString("strings"),Toast.LENGTH_SHORT).show();
+                intent.putExtra("dataset",dataset);
+                intent.putExtra("dataItem",dataItem);
+                intent.putExtra("strings",strings);
+                intent.putExtra("j",j);
+                intent.putExtra("row",row);
+                intent.putExtra("rowName",rowName);
+                intent.putExtra("tables",tables);
+                intent.putExtra("selectName",selectName);
 
-                //startActivityForResult(intent, REQUEST_CODE_ADD);
+                startActivityForResult(intent, REQUEST_CODE_ADD);
             }
         });
+
+
+
+
+
 //обработка кнопки Поиск
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,8 +184,7 @@ public class MainActivity extends AppCompatActivity {
     //Обработка нажатия на кнопки контекстного меню:
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info =
-                (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
 //кнопка детализация
             case R.id.show_advance:
@@ -238,8 +264,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         if (data == null) {return;}
-        //String[] from = {"mName"};
-        //int[] to = {R.id.mName_holder};
         rb = data.getStringExtra("rb");
 
         if (resultCode == RESULT_OK) {

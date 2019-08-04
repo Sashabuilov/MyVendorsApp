@@ -13,13 +13,11 @@ public class workWithDb {
 
     public void showAll(Context context,ArrayList<HashMap<String, String>> dataset, SQLiteDatabase database, String rb) {
 
-
         dataset.clear();
         String query = "";
 
-
-
         //проверяем, в каком положении был переключатель (Материал или производитель)
+        Toast.makeText(context,rb,Toast.LENGTH_SHORT).show();
 
         if (rb.equals("1")) query = "SELECT * FROM materials";
         if (rb.equals("2")) query = "SELECT * FROM manufacturers";
@@ -44,6 +42,7 @@ public class workWithDb {
                 dataItem.put("INN", cursor.getString(2));
             }
             //Закидываем клиента в список клиентов
+            assert dataset != null;
             dataset.add(dataItem);
             //Переходим к следующему клиенту
             cursor.moveToNext();
