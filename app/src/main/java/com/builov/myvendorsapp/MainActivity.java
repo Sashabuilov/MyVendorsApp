@@ -267,11 +267,19 @@ public class MainActivity extends AppCompatActivity {
                     //извлекаем данные из data
                     String name = data.getStringExtra("name");
                     String inn = data.getStringExtra("inn");
+                    String tempID = data.getStringExtra("tempID");
                     rb = data.getStringExtra("rb");
-
                     //вызываем sqlQuery().insert в который передаем базу данных, ИМЯ, ИНН
                     new sqlQuery().insert(database,rb,name,inn,dataset,getApplicationContext());
+
+                    if (rb.equals("1")) {
+                        new sqlQuery().svodInsert("Id", tblMat,database, tempID);
+                    } else if(rb.equals("2")){
+                        new sqlQuery().svodInsert("id", tblMan,database, tempID);
+                    }
+
                     //new listViewAdapter().setAdapter(from, to, rb, listView, dataset, getApplicationContext());
+
                     new workWithDb().showAll(getApplicationContext(),dataset, database, rb);
                     break;
 

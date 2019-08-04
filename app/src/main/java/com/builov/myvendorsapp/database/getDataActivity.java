@@ -45,7 +45,6 @@ public class getDataActivity {
         return bundle;
     }
 
-
     //получаем позицию любого выбранного элемента в ListView
     public Bundle getPosition(SQLiteDatabase database, Context context, HashMap<String, String> data, String tables, String row, String radioButton) {
         //объект bundle который будем возвращать
@@ -56,12 +55,12 @@ public class getDataActivity {
         String inn = "";//ИНН
 
 
-        if (radioButton.equals("1")) radioButton = "Id";
-        if (radioButton.equals("2")) radioButton = "id";
+        if (radioButton.equals("1")) id = "Id";
+        if (radioButton.equals("2")) id = "id";
 
         //Выбираем все из таблицы tables(значение которой нужно получить из MainActiity) ID=row
 
-        String query = "SELECT * FROM " + tables + " WHERE " + radioButton + " = " + data.get(row);
+        String query = "SELECT * FROM " + tables + " WHERE " + id + " = " + data.get(row);
 
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
@@ -69,13 +68,14 @@ public class getDataActivity {
         while (!cursor.isAfterLast()) {
             id = cursor.getString(0);
             name = cursor.getString(1);
-            if (radioButton.equals("id")) inn = cursor.getString(2);
+            if (radioButton.equals("2")) inn = cursor.getString(2);
             cursor.moveToNext();
         }
         cursor.close();
         bundle.putString("Id", id);
         bundle.putString("mName", name);
-        if (!inn.equals("")) {
+        if (radioButton.equals("2")){
+        //if (!inn.equals("")) {
             bundle.putString("mINN", inn); }
         return bundle;
     }

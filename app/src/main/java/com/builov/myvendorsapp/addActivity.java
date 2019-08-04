@@ -1,7 +1,9 @@
 package com.builov.myvendorsapp;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,10 +13,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.builov.myvendorsapp.adapter.listViewAdapter;
+import com.builov.myvendorsapp.database.DataBaseHelper;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class addActivity extends AppCompatActivity {
+
+    ArrayList<HashMap<String, String>> dataset = new ArrayList<HashMap<String, String>>();
+    HashMap<String, String> dataItem;
+
     Button add;
     Button btn_add_advance;
     Button btn_cancel;
@@ -24,25 +33,21 @@ public class addActivity extends AppCompatActivity {
     TextView tv_Choise;
     ListView addListView;
     Context mContext;
+    Intent intent = new Intent();
+
+    private DataBaseHelper mDBHelper;
+    private SQLiteDatabase database;
+
+    private String svodINN;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new);
 
+        mDBHelper = new DataBaseHelper(this);
+        database = mDBHelper.getWritableDatabase();
+
         mContext = this.getApplicationContext();
-
-
-
-        /*final ArrayList<HashMap<String,String>> dataset = (ArrayList<HashMap<String,String>>) getIntent().getSerializableExtra("dataset");
-        final HashMap<String,String> dataItem = (HashMap<String,String>) getIntent().getSerializableExtra("datItem");
-        final String[] strings = getIntent().getStringArrayExtra("strings");
-        final String j = getIntent().getStringExtra("j");
-
-        final String row = getIntent().getStringExtra("row");
-        final String rowName = getIntent().getStringExtra("rowName");
-        final String tables = getIntent().getStringExtra("tables");
-        final String selectName = getIntent().getStringExtra("selectName");*/
-
         initUI();
         setTitle("Добавление");
         etINN.setEnabled(false);
@@ -65,20 +70,8 @@ public class addActivity extends AppCompatActivity {
         btn_add_advance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getApplicationContext(),"Кнопка ДОБАВИТЬ",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(addActivity.this, addAdvanceActivity.class);
                 intent.putExtra("rb", rb);
-
-                /*intent.putExtra("dataset",dataset);
-                intent.putExtra("dataItem", dataItem);
-                intent.putExtra("strings",strings);
-                intent.putExtra("j",j);
-
-                intent.putExtra("row",row);
-                intent.putExtra("rowName",rowName);
-                intent.putExtra("tables",tables);
-                intent.putExtra("selectName",selectName);
-*/
                 startActivityForResult(intent,1);
 
             }
@@ -88,7 +81,6 @@ public class addActivity extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
                 intent.putExtra("name", etName.getText().toString());
                 intent.putExtra("inn", etINN.getText().toString());
                 intent.putExtra("rb", rb);
@@ -109,11 +101,21 @@ public class addActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Bundle bundle = data.getBundleExtra("bundle");
+        String svodId = bundle.getString("Id");
+        String svodName = bundle.getString("mName");
+        if (rb.equals("1")){
+            svodINN = bundle.getString("mINN");
+        }
 
-        String Id = bundle.getString("Id");
-        String mName = bundle.getString("mName");
+        if(rb.equals("1")){
 
-        Toast.makeText(getApplicationContext(), mName,Toast.LENGTH_SHORT).show();
+            String[] from = {"Name", "INN"};
+            int[] to = {R.id.mName_holder, R.id.mINN_Holder};
+            //new listViewAdapter().setAdapter(from,to,rb,addListView,,getApplicationContext());
+        }
+
+        intent.putExtra("tempID",svodId);
+
 
     }
 

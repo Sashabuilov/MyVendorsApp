@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.strictmode.SqliteObjectLeakedViolation;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -110,5 +111,21 @@ public class sqlQuery {
         cursor.close();
 
         // данные в таблице обновлены, осталось их отобразить. Возвращаемся в MainActivity.
+    }
+
+    public void svodInsert(String ID, String tables,SQLiteDatabase database, String manufacturers_id){
+
+            String query = "SELECT "+ ID +" FROM " + tables + " WHERE " + ID + " = last_insert_rowid() ";
+
+            Cursor cursor = database.rawQuery(query, null);
+            cursor.moveToFirst();
+            String materials_id = cursor.getString(0);
+            cursor.close();
+
+            ContentValues contentValues=new ContentValues();
+            contentValues.put("manufacturers_id",manufacturers_id);
+            contentValues.put("materials_id",materials_id);
+
+            database.insert("manufacturers_materials", null, contentValues);
     }
 }
