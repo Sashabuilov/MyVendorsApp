@@ -7,8 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29c773e4-0194-4e49-ad51-ded791f452b0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/manufacturers_item_wtb.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/materials_item_wtb.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/javaCompile/classAnalysis.bin" afterDir="false" />
@@ -17,13 +15,8 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addAdvanceActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addAdvanceActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/getDataActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/getDataActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/sqlQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/sqlQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/workWithDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/workWithDb.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -67,26 +60,26 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="186" />
+          <entry key="java" value="191" />
           <entry key="xml" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="186" />
+          <entry key="JAVA" value="191" />
           <entry key="XML" value="27" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="14328" />
+          <entry key="java" value="14583" />
           <entry key="txt" value="395" />
           <entry key="xml" value="201" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="14328" />
+          <entry key="JAVA" value="14583" />
           <entry key="PLAIN_TEXT" value="395" />
           <entry key="XML" value="201" />
         </counts>
@@ -98,7 +91,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
+            <state relative-caret-position="-532">
               <caret line="110" column="36" selection-start-line="110" selection-start-column="36" selection-end-line="110" selection-end-column="36" />
               <folding>
                 <element signature="method#onContextItemSelected#0;class#MainActivity#0" />
@@ -114,17 +107,32 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addAdvanceActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="88" column="77" selection-start-line="88" selection-start-column="77" selection-end-line="88" selection-end-column="77" />
+            <state relative-caret-position="476">
+              <caret line="115" column="14" selection-start-line="115" selection-start-column="14" selection-end-line="115" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/workWithDb.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/getDataActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
+            <state relative-caret-position="98">
+              <caret line="49" column="18" selection-start-line="49" selection-start-column="18" selection-end-line="49" selection-end-column="18" />
+              <folding>
+                <element signature="method#showAdvance#0;class#getDataActivity#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="593">
+              <caret line="115" column="53" selection-start-line="115" selection-start-column="53" selection-end-line="115" selection-end-column="53" />
+              <folding>
+                <element signature="method#initUI#0;class#addActivity#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -2430,10 +2438,10 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/manufacturers_item_wtb.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/materials_item_wtb.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/adapter/listViewAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/workWithDb.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/getDataActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addAdvanceActivity.java" />
       </list>
     </option>
@@ -2460,6 +2468,12 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
             </path>
+            <path>
+              <item name="MyVendorsApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="myvendorsapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -2475,7 +2489,7 @@
     <property name="DEBUGGER_ID" value="Auto" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
-    <property name="device.picker.selection" value="c04fc2b40604" />
+    <property name="device.picker.selection" value="Nexus_5X_API_24" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
   <component name="RecentsManager">
@@ -2574,9 +2588,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.22213247" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.22213247" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -2783,19 +2798,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/workWithDb.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1235">
-          <caret line="110" selection-start-line="110" selection-end-line="110" />
-          <folding>
-            <element signature="method#initUI#0;class#addActivity#0" />
-          </folding>
+        <state relative-caret-position="90">
+          <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/getDataActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
+        <state relative-caret-position="98">
           <caret line="49" column="18" selection-start-line="49" selection-start-column="18" selection-end-line="49" selection-end-column="18" />
           <folding>
             <element signature="method#showAdvance#0;class#getDataActivity#0" />
@@ -2805,7 +2817,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
+        <state relative-caret-position="-532">
           <caret line="110" column="36" selection-start-line="110" selection-start-column="36" selection-end-line="110" selection-end-column="36" />
           <folding>
             <element signature="method#onContextItemSelected#0;class#MainActivity#0" />
@@ -2817,17 +2829,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/workWithDb.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
+        <state relative-caret-position="593">
+          <caret line="115" column="53" selection-start-line="115" selection-start-column="53" selection-end-line="115" selection-end-column="53" />
+          <folding>
+            <element signature="method#initUI#0;class#addActivity#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addAdvanceActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="88" column="77" selection-start-line="88" selection-start-column="77" selection-end-line="88" selection-end-column="77" />
+        <state relative-caret-position="476">
+          <caret line="115" column="14" selection-start-line="115" selection-start-column="14" selection-end-line="115" selection-end-column="14" />
         </state>
       </provider>
     </entry>

@@ -33,7 +33,7 @@ public class addActivity extends AppCompatActivity {
 
 
 
-        final ArrayList<HashMap<String,String>> dataset = (ArrayList<HashMap<String,String>>) getIntent().getSerializableExtra("dataset");
+        /*final ArrayList<HashMap<String,String>> dataset = (ArrayList<HashMap<String,String>>) getIntent().getSerializableExtra("dataset");
         final HashMap<String,String> dataItem = (HashMap<String,String>) getIntent().getSerializableExtra("datItem");
         final String[] strings = getIntent().getStringArrayExtra("strings");
         final String j = getIntent().getStringExtra("j");
@@ -41,7 +41,7 @@ public class addActivity extends AppCompatActivity {
         final String row = getIntent().getStringExtra("row");
         final String rowName = getIntent().getStringExtra("rowName");
         final String tables = getIntent().getStringExtra("tables");
-        final String selectName = getIntent().getStringExtra("selectName");
+        final String selectName = getIntent().getStringExtra("selectName");*/
 
         initUI();
         setTitle("Добавление");
@@ -69,7 +69,7 @@ public class addActivity extends AppCompatActivity {
                 Intent intent = new Intent(addActivity.this, addAdvanceActivity.class);
                 intent.putExtra("rb", rb);
 
-                intent.putExtra("dataset",dataset);
+                /*intent.putExtra("dataset",dataset);
                 intent.putExtra("dataItem", dataItem);
                 intent.putExtra("strings",strings);
                 intent.putExtra("j",j);
@@ -78,7 +78,7 @@ public class addActivity extends AppCompatActivity {
                 intent.putExtra("rowName",rowName);
                 intent.putExtra("tables",tables);
                 intent.putExtra("selectName",selectName);
-
+*/
                 startActivityForResult(intent,1);
 
             }
@@ -108,8 +108,13 @@ public class addActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        String i = data.getStringExtra("id");
-        Toast.makeText(getApplicationContext(), i,Toast.LENGTH_SHORT).show();
+        Bundle bundle = data.getBundleExtra("bundle");
+
+        String Id = bundle.getString("Id");
+        String mName = bundle.getString("mName");
+
+        Toast.makeText(getApplicationContext(), mName,Toast.LENGTH_SHORT).show();
+
     }
 
     public void initUI() {

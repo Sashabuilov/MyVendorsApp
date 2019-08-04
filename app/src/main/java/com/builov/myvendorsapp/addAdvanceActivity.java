@@ -27,8 +27,7 @@ import java.util.HashMap;
 public class addAdvanceActivity extends AppCompatActivity {
 
     ArrayList<HashMap<String, String>> dataset = new ArrayList<HashMap<String, String>>();
-    HashMap<String, String> dataItem;
-    //ArrayList<String> stringArray = new ArrayList<String>();
+    //HashMap<String, String> dataItem;
 
 
     private DataBaseHelper mDBHelper;
@@ -37,15 +36,10 @@ public class addAdvanceActivity extends AppCompatActivity {
     String rb;
     Context context;
     Button buttonOk;
-    //CheckBox mCheckBox;
     String row;
-    //String rowName;
     String tables;
-
     String tblMat = "materials";
     String tblMan = "manufacturers";
-    //String tblSvod = "manufacturers_materials";
-
 
 
     @Override
@@ -102,45 +96,37 @@ public class addAdvanceActivity extends AppCompatActivity {
 
                 else if(rb.equals("2")){rb="1";}
 
-                setResult(RESULT_OK, null);
+                Intent intent=new Intent();
+                intent.putExtra("bundle",bundle);
+                setResult(RESULT_OK, intent);
                 finish();
 
             }
         });
 
-
-
-        if (rb.equals("1")){//в первом окне чек бокс стоял на Материалах,нужно отобразить Производителей
-
-            rb="2";
+        if (rb.equals("2")){//в первом окне чек бокс стоял на Материалах,нужно отобразить Производителей
             new workWithDb().showAll(getApplicationContext(),dataset, database, rb);
             //получили dataset из manufacturers
-            rb="1";
             String[] from = {"Name", "INN"};
+            rb="1";
             int[] to = {R.id.mName_holder, R.id.mINN_Holder};
             new listViewAdapter().setAdvAdapter(from, to, rb, listView, dataset, getApplicationContext());
+            //rb="2";
 
-        }
+        } else
 
-        if (rb.equals("2")) {//в первом окне чек бокс стоял на Производителях,нужно отобразить материалы
-            rb = "1";
+        if (rb.equals("1")) {//в первом окне чек бокс стоял на Производителях,нужно отобразить материалы
             new workWithDb().showAll(getApplicationContext(), dataset, database, rb);
             String[] from = {"mName"};
-            rb = "2";
+            rb="2";
             final int[] to = {R.id.mName_holder};
             new listViewAdapter().setAdvAdapter(from, to, rb, listView, dataset, getApplicationContext());
+            //rb = "1";
         }
     }
 
     private void initUI() {
         listView = findViewById(R.id.detailListView);
         buttonOk = findViewById(R.id.buttonBack);
-    }
-
-
-    private void getData(){
-
-
-
     }
 }
