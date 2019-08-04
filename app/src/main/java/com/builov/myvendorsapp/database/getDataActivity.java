@@ -13,18 +13,13 @@ import java.util.HashMap;
 
 public class getDataActivity {
 
-    public Bundle showAdvance(String tblMan, String tblMat, String tblSvod,
-                              HashMap<String, String> data, SQLiteDatabase database,
-                              String[] strings, int j, Context context,
-                              String row, String rowName, String tables, String selectName) {
+    public Bundle showAdvance(String tblMan, String tblMat, String tblSvod, HashMap<String, String> data, SQLiteDatabase database, String[] strings, int j, Context context, String row, String rowName, String tables, String selectName) {
 
         Bundle bundle = new Bundle();
         String query = "SELECT " + selectName + " FROM " + tblMan + " as man," + tblMat + " as mat," + tblSvod + " as svod " +
                 "WHERE man.id=svod.manufacturers_id " +
                 "AND mat.Id=svod.materials_id " +
                 "AND " + rowName + "=" + data.get(row);
-
-        Toast.makeText(context,query,Toast.LENGTH_SHORT).show();
 
         Cursor cursor = database.rawQuery(query, null);
 
@@ -62,12 +57,11 @@ public class getDataActivity {
 
 
         if (radioButton.equals("1")) radioButton = "Id";
-        else radioButton = "id";
+        if (radioButton.equals("2")) radioButton = "id";
 
         //Выбираем все из таблицы tables(значение которой нужно получить из MainActiity) ID=row
 
         String query = "SELECT * FROM " + tables + " WHERE " + radioButton + " = " + data.get(row);
-        //Toast.makeText(context,query,Toast.LENGTH_LONG).show();
 
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
@@ -85,6 +79,4 @@ public class getDataActivity {
             bundle.putString("mINN", inn); }
         return bundle;
     }
-
-
 }

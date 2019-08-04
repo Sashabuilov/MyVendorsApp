@@ -82,7 +82,6 @@ public class sqlQuery {
             select = "Id=";
             table = "manufacturers";
             query = "SELECT * FROM manufacturers";
-           // Toast.makeText(context, query, Toast.LENGTH_LONG).show();
         }
 
         if (inn.equals("")) {
@@ -93,7 +92,6 @@ public class sqlQuery {
             select="id=";
             table = "materials";
             query = "SELECT * FROM materials";
-            //Toast.makeText(context, query, Toast.LENGTH_LONG).show();
         }
 
         //выполняем запрос описаный выше

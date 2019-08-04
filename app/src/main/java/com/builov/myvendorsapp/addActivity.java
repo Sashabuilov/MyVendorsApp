@@ -79,7 +79,7 @@ public class addActivity extends AppCompatActivity {
                 intent.putExtra("tables",tables);
                 intent.putExtra("selectName",selectName);
 
-                startActivity(intent);
+                startActivityForResult(intent,1);
 
             }
         });
@@ -104,6 +104,12 @@ public class addActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String i = data.getStringExtra("id");
+        Toast.makeText(getApplicationContext(), i,Toast.LENGTH_SHORT).show();
     }
 
     public void initUI() {

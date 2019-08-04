@@ -17,7 +17,6 @@ public class workWithDb {
         String query = "";
 
         //проверяем, в каком положении был переключатель (Материал или производитель)
-        Toast.makeText(context,rb,Toast.LENGTH_SHORT).show();
 
         if (rb.equals("1")) query = "SELECT * FROM materials";
         if (rb.equals("2")) query = "SELECT * FROM manufacturers";

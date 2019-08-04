@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     String tblMat = "materials";
     String tblMan = "manufacturers";
     String tblSvod = "manufacturers_materials";
+
     String[] strings;
     int j = 0;
     String row;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initUI();
+        setTitle("Товаровед");
         row = "Id";
         rowName = "mat.Id";
         tables = tblMat;
@@ -127,18 +129,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, addActivity.class);
-//Запускаем активность с ожиданием возврада данных  при ее методе finish ();
-
-
-
-
-
-
-                //Toast.makeText(getApplicationContext(),dataItem.get("Id"),Toast.LENGTH_SHORT).show();
-
-
                 intent.putExtra("rb",rb);
-
                 dataset.clear();
                 new workWithDb().showAll(getApplicationContext(),dataset, database, rb);
 
