@@ -35,7 +35,8 @@ public class editActivity extends AppCompatActivity {
 
         if (rb.equals("1")) {
             etINN.setEnabled(false);
-            etINN.setText("Не доступно");
+            etINN.setHint("Не доступно");
+
         }
 
         //полученное имя вставляем в EditText etName

@@ -23,27 +23,23 @@ import java.util.HashMap;
 public class addAdvanceActivity extends AppCompatActivity {
 
     ArrayList<HashMap<String, String>> dataset = new ArrayList<HashMap<String, String>>();
-    HashMap<String, String> dataItem;
-    ArrayList<String> stringArray = new ArrayList<String>();
+    //HashMap<String, String> dataItem;
+    //ArrayList<String> stringArray = new ArrayList<String>();
 
 
     private DataBaseHelper mDBHelper;
     private SQLiteDatabase database;
     ListView listView;
-    String tblMat = "materials";
-    String tblMan = "manufacturers";
-    String tblSvod = "manufacturers_materials";
-    String[] strings;
-    int j = 0;
     String rb;
-
     Context context;
+    Button buttonOk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         initUI();
+        buttonOk.setText("OK");
         rb=getIntent().getStringExtra("rb");
 
         context = this.getApplicationContext();
@@ -59,7 +55,7 @@ public class addAdvanceActivity extends AppCompatActivity {
             String[] from = {"Name", "INN"};
             int[] to = {R.id.mName_holder, R.id.mINN_Holder};
 
-            new listViewAdapter().setAdapter(from, to, rb, listView, dataset, getApplicationContext());
+            new listViewAdapter().setAdvAdapter(from, to, rb, listView, dataset, getApplicationContext());
         }
 
 
@@ -71,7 +67,7 @@ public class addAdvanceActivity extends AppCompatActivity {
             String[] from = {"mName"};
             rb="2";
             final int[] to = {R.id.mName_holder};
-            new listViewAdapter().setAdapter(from, to, rb, listView, dataset, getApplicationContext());
+            new listViewAdapter().setAdvAdapter(from, to, rb, listView, dataset, getApplicationContext());
         }
 
 
@@ -80,6 +76,7 @@ public class addAdvanceActivity extends AppCompatActivity {
     private void initUI() {
 
         listView = findViewById(R.id.detailListView);
+        buttonOk = findViewById(R.id.buttonBack);
 
     }
 

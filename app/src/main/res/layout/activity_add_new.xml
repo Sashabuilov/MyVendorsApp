@@ -82,7 +82,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="ВЫБЕРИТЕ ПРОИЗВОДИТЕЛЯ:"
-                        android:textSize="18sp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <Button

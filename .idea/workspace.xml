@@ -15,12 +15,12 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/adapter/listViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/adapter/listViewAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addAdvanceActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addAdvanceActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/getDataActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/getDataActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/workWithDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/workWithDb.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/editActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/editActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_new.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/manufacturers_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/manufacturers_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/materials_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/materials_item.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -63,28 +63,28 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="165" />
-          <entry key="xml" value="16" />
+          <entry key="java" value="166" />
+          <entry key="xml" value="22" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="165" />
-          <entry key="XML" value="16" />
+          <entry key="JAVA" value="166" />
+          <entry key="XML" value="22" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="13046" />
+          <entry key="java" value="13164" />
           <entry key="txt" value="395" />
-          <entry key="xml" value="171" />
+          <entry key="xml" value="178" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="13046" />
+          <entry key="JAVA" value="13164" />
           <entry key="PLAIN_TEXT" value="395" />
-          <entry key="XML" value="171" />
+          <entry key="XML" value="178" />
         </counts>
       </usages-collector>
     </session>
@@ -105,29 +105,71 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addAdvanceActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="519">
-              <caret line="71" column="19" selection-start-line="71" selection-start-column="19" selection-end-line="71" selection-end-column="19" />
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_new.xml">
+          <provider selected="true" editor-type-id="android-designer2" />
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="1545">
+              <caret line="103" column="48" selection-start-line="103" selection-start-column="48" selection-end-line="103" selection-end-column="48" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/adapter/listViewAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/manufacturers_item.xml">
+          <provider selected="true" editor-type-id="android-designer2" />
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="483">
+              <caret line="38" column="17" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/editActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="224">
+              <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1517#2191#0" expanded="true" />
+                <element signature="e#2190#2191#0" expanded="true" />
+                <element signature="method#initUI#0;class#editActivity#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/materials_item.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="36" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addAdvanceActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="215">
+              <caret line="41" column="28" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail.xml">
+          <provider selected="true" editor-type-id="android-designer2" />
+          <provider editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/workWithDb.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="495">
-              <caret line="40" column="38" lean-forward="true" selection-start-line="40" selection-start-column="38" selection-end-line="40" selection-end-column="38" />
+              <caret line="40" column="38" selection-start-line="40" selection-start-column="38" selection-end-line="40" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -2423,16 +2465,18 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/advanceActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/getDataActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_edit.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/adapter/listViewAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/sqlQuery.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_new.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/addAdvanceActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/getDataActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/editActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/workWithDb.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/adapter/listViewAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_new.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addAdvanceActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/materials_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/manufacturers_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/editActivity.java" />
       </list>
     </option>
   </component>
@@ -2473,6 +2517,17 @@
               <item name="myvendorsapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="database" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="MyVendorsApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="MyVendorsApp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -2486,7 +2541,7 @@
     <property name="DEBUGGER_ID" value="Auto" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
-    <property name="device.picker.selection" value="c04fc2b40604" />
+    <property name="device.picker.selection" value="Nexus_5X_API_24" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
   <component name="RecentsManager">
@@ -2645,28 +2700,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/trash.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/details_item.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
-      <provider editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
       <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
         <state relative-caret-position="367">
           <caret line="65" column="36" selection-start-line="65" selection-start-column="36" selection-end-line="65" selection-end-column="36" />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/manufacturers_item.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-161" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/materials_item.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-153" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/adapter/detailAdapter.java">
@@ -2713,18 +2752,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
-      <provider editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_new.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="103" column="48" selection-start-line="103" selection-start-column="48" selection-end-line="103" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/detailsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -2759,19 +2786,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/editActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="64" column="11" selection-start-line="64" selection-start-column="11" selection-end-line="64" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1517#2191#0" expanded="true" />
-            <element signature="e#2190#2191#0" expanded="true" />
-            <element signature="method#initUI#0;class#editActivity#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-430">
@@ -2797,21 +2811,66 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/database/workWithDb.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
-          <caret line="40" column="38" lean-forward="true" selection-start-line="40" selection-start-column="38" selection-end-line="40" selection-end-column="38" />
+          <caret line="40" column="38" selection-start-line="40" selection-start-column="38" selection-end-line="40" selection-end-column="38" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/details_item.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/adapter/listViewAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+        <state relative-caret-position="236">
+          <caret line="28" column="9" lean-forward="true" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_new.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="1545">
+          <caret line="103" column="48" selection-start-line="103" selection-start-column="48" selection-end-line="103" selection-end-column="48" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/addAdvanceActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="519">
-          <caret line="71" column="19" selection-start-line="71" selection-start-column="19" selection-end-line="71" selection-end-column="19" />
+        <state relative-caret-position="215">
+          <caret line="41" column="28" selection-start-line="41" selection-start-column="28" selection-end-line="41" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/materials_item.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="36" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/manufacturers_item.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="38" column="17" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/builov/myvendorsapp/editActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1517#2191#0" expanded="true" />
+            <element signature="e#2190#2191#0" expanded="true" />
+            <element signature="method#initUI#0;class#editActivity#0" />
+          </folding>
         </state>
       </provider>
     </entry>
