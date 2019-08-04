@@ -27,7 +27,7 @@ public class getDataActivity {
         Cursor cursor = database.rawQuery(query, null);
 
 
-        //получаем длину таблицы
+        //получаем длину таблицы и ее содержимое
         long rowCount;
         rowCount = DatabaseUtils.queryNumEntries(database, tables);
 

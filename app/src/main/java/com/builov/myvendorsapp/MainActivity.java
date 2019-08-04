@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     String selectName;
     String rb;
 
+    String[] names;
+
     final int REQUEST_CODE_ADD = 1;
     final int REQUEST_CODE_EDIT = 2;
 
@@ -120,7 +122,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, addActivity.class);
 //Запускаем активность с ожиданием возврада данных  при ее методе finish ();
-                startActivityForResult(intent, REQUEST_CODE_ADD);
+                intent.putExtra("rb",rb);
+
+                Bundle bundle = new getDataActivity().showAdvance(tblMan, tblMat, tblSvod, dataItem,
+                        database, strings, j, getApplicationContext(), row, rowName, tables, selectName);
+
+                 Toast.makeText(getApplicationContext(),bundle.getString("strings"),Toast.LENGTH_SHORT).show();
+
+                //startActivityForResult(intent, REQUEST_CODE_ADD);
             }
         });
 //обработка кнопки Поиск
@@ -217,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
 //кнопка удалить
             case R.id.delete:
                 HashMap<String, String> datadelet = dataset.get(info.position);
-   //             deleteItem(datadelet);
+                deleteItem(datadelet);
                 return true;
             default:
                 return super.onContextItemSelected(item);
@@ -228,9 +237,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
-        //rb="";
-        String[] from = {"mName"};
-        final int[] to = {R.id.mName_holder};
+        if (data == null) {return;}
+        //String[] from = {"mName"};
+        //int[] to = {R.id.mName_holder};
+        rb = data.getStringExtra("rb");
 
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
@@ -238,23 +248,24 @@ public class MainActivity extends AppCompatActivity {
 //обрабатываем полученные данные из addActivity
                 case REQUEST_CODE_ADD:
 
-                    if (data == null) {return;}
+
+                    //извлекаем данные из data
                     String name = data.getStringExtra("name");
                     String inn = data.getStringExtra("inn");
                     rb = data.getStringExtra("rb");
-                    ContentValues contentValues = new ContentValues();
-                    new sqlQuery().insert(contentValues,database,rb,name,inn,dataset,getApplicationContext());
-                    rbMaterials.setChecked(true);
+
+                    //вызываем sqlQuery().insert в который передаем базу данных, ИМЯ, ИНН
+                    new sqlQuery().insert(database,rb,name,inn,dataset,getApplicationContext());
+                    //new listViewAdapter().setAdapter(from, to, rb, listView, dataset, getApplicationContext());
                     new workWithDb().showAll(getApplicationContext(),dataset, database, rb);
-                    new listViewAdapter().setAdapter(from, to, rb, listView, dataset, getApplicationContext());
                     break;
 
 //обрабатываем полученные данные из editActivity
                 case REQUEST_CODE_EDIT:
                     //данные из активности editActivity кладутся в Intent data
                     //проверяем чтобы он не был пустым
-                    assert data != null;
-
+                    if (data == null) {return;}
+                    //assert data != null;
                     //извлекаем данные из data
                     String resultId = data.getStringExtra("id");//ИД
                     String resultName = data.getStringExtra("mName");//ИМЯ
@@ -276,24 +287,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //работа с удалением элементов
-    /*public void deleteItem(HashMap<String, String> data) {
-        if (rbMaterials.isChecked()) {
+    public void deleteItem(HashMap<String, String> data) {
+        if (rb.equals("1")) {
 
             new sqlQuery().del(database, "Id", tblMat, data, rbMaterials, getApplicationContext());
+            new workWithDb().showAll(getApplicationContext(),dataset, database, rb);
             new sqlQuery().svodDel(database, "Id", data, rbMaterials, getApplicationContext());
-            new workWithDb().showAll(dataset, database, rbMaterials,rb);
+
             String[] from = {"mName"};
             final int[] to = {R.id.mName_holder};
-            new listViewAdapter().setAdapter(from, to, rbMaterials, listView, dataset, getApplicationContext());
-        } else {
-            new sqlQuery().del(database, "id", tblMan, data, rbMaterials, getApplicationContext());
-            new sqlQuery().svodDel(database, "id", data, rbMaterials, getApplicationContext());
-            new workWithDb().showAll(dataset, database, rbMaterials,rb);
-            String[] from = {"Name", "INN"};
-            final int[] to = {R.id.mName_holder};
-            new listViewAdapter().setAdapter(from, to, rbMaterials, listView, dataset, getApplicationContext());
+            new workWithDb().showAll(getApplicationContext(),dataset, database, rb);
+            new listViewAdapter().setAdapter(from, to, rb, listView, dataset, getApplicationContext());
+            //new listViewAdapter().setAdapter(from, to, rbMaterials, listView, dataset, getApplicationContext());
         }
-    }*/
+
+        if (rb.equals("2")) {
+            new sqlQuery().del(database, "id", tblMan, data, rbMaterials, getApplicationContext());
+            new workWithDb().showAll(getApplicationContext(),dataset, database, rb);
+            new sqlQuery().svodDel(database, "id", data, rbMaterials, getApplicationContext());
+            String[] from = {"Name", "INN"};
+            final int[] to = {R.id.mName_holder, R.id.mINN_Holder};
+            new listViewAdapter().setAdapter(from, to, rb, listView, dataset, getApplicationContext());
+            //new listViewAdapter().setAdapter(from, to, rbMaterials, listView, dataset, getApplicationContext());
+        }
+    }
 
     //Инициализация контекстного меню:
     @Override

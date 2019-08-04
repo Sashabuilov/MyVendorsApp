@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class editActivity extends AppCompatActivity {
 
@@ -13,6 +14,7 @@ public class editActivity extends AppCompatActivity {
     EditText etINN;
     Button btn_edit_cancel;
     Button btn_edit_OK;
+    Button addDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +30,13 @@ public class editActivity extends AppCompatActivity {
         //вынимаем из полученного из MainActivity intent три переменные ИД, ИМЯ, ИНН
         final String id = this.getIntent().getStringExtra("Id");
         String name = this.getIntent().getStringExtra("name");
-        String inn = this.getIntent().getStringExtra("INN");
+        final String inn = this.getIntent().getStringExtra("INN");
         final String rb = this.getIntent().getStringExtra("rb");
+
+        if (rb.equals("1")) {
+            etINN.setEnabled(false);
+            etINN.setText("Не доступно");
+        }
 
         //полученное имя вставляем в EditText etName
         etName.setText(name);
@@ -40,15 +47,47 @@ public class editActivity extends AppCompatActivity {
         btn_edit_OK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("id", id);
-                intent.putExtra("mName", etName.getText().toString());
-                intent.putExtra("INN", etINN.getText().toString());
-                intent.putExtra("rb",rb);
 
-        //убиваем активность
-                finish();
+                if (etName.getText().equals("") || etINN.getText().equals("")) {
+                    Toast.makeText(getApplicationContext(), "Заполнены не все поля ввода", Toast.LENGTH_SHORT).show();
+                } else {
+
+
+                    intent.putExtra("id", id);
+                    intent.putExtra("mName", etName.getText().toString());
+                    intent.putExtra("INN", etINN.getText().toString());
+                    intent.putExtra("rb", rb);
+
+                    //убиваем активность
+                    finish();
+               }
             }
         });
+
+
+
+
+
+
+
+
+
+
+
+        addDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentAdd = new Intent(editActivity.this,addAdvanceActivity.class);
+
+            }
+        });
+
+
+
+
+
+
+
 
         //обработка кнопки "Отмена"
         btn_edit_cancel.setOnClickListener(new View.OnClickListener() {
@@ -67,5 +106,6 @@ public class editActivity extends AppCompatActivity {
         etINN = findViewById(R.id.et_edit_INN);
         btn_edit_cancel = findViewById(R.id.btn_edit_cancel);
         btn_edit_OK = findViewById(R.id.btn_edit_ok);
+        addDetail=findViewById(R.id.button_add_new);
     }
 }

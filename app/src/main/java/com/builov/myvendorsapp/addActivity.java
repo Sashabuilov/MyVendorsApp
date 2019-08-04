@@ -5,18 +5,20 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RadioButton;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class addActivity extends AppCompatActivity {
     Button add;
-    RadioButton rbMater;
-    RadioButton rbManuf;
+    Button btn_add_advance;
+    Button btn_cancel;
     EditText etName;
     EditText etINN;
-    EditText etchange;
     String rb="1";
+    TextView tv_Choise;
+    ListView addListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,23 +26,32 @@ public class addActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new);
         initUI();
         setTitle("Добавление");
-        rbMater.isChecked();
         etINN.setEnabled(false);
         etINN.setText("Не доступно");
+        rb = this.getIntent().getStringExtra("rb");
 
-        rbMater.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        if (rb.equals("1")) {
+            etINN.setEnabled(false);
+            etINN.setText("Не доступно");
+            setTitle("МАТЕРИАЛЫ");
+        }
+
+        if (rb.equals("2")){
+            etINN.setEnabled(true);
+            etINN.setText("");
+            setTitle("ПРОИЗВОДИТЕЛИ");
+            tv_Choise.setText("ВЫБЕРИТЕ МАТЕРИАЛ");
+        }
+
+        btn_add_advance.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton
-                                                 buttonView, boolean isChecked) {
-                if (rbMater.isChecked()) {
-                    etINN.setEnabled(false);rb="1";
-                    etINN.setText("Не доступно");
-                } else {
-                    etINN.setEnabled(true);rb="2";
-                    etINN.setText("");
-                }
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"Кнопка ДОБАВИТЬ",Toast.LENGTH_SHORT).show();
+
             }
         });
+
+
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,14 +63,23 @@ public class addActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_OK, null);
+                finish();
+            }
+        });
     }
 
     public void initUI() {
-        rbManuf = findViewById(R.id.rbManuf);
-        rbMater = findViewById(R.id.rbMater);
         etName = findViewById(R.id.etName);
         etINN = findViewById(R.id.etInn);
-        //etchange = findViewById(R.id.etMan);
         add = findViewById(R.id.button_add_new);
+        btn_add_advance =findViewById(R.id.button_add);
+        btn_cancel=findViewById(R.id.btn_add_cancel);
+        tv_Choise=findViewById(R.id.tv_Choise);
+        addListView = findViewById(R.id.addListView);
     }
 }

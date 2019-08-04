@@ -43,23 +43,22 @@ public class sqlQuery {
             database.delete("manufacturers_materials", "manufacturers_id=" + data.get(condition), null);
     }
 
-    public void insert(ContentValues contentValues,SQLiteDatabase database, String rb, String name, String inn, ArrayList<HashMap<String, String>> dataset, Context context) {
+    public void insert(SQLiteDatabase database, String rb, String name, String inn, ArrayList<HashMap<String, String>> dataset, Context context) {
 
+        ContentValues contentValues=new ContentValues();
 
         if (rb.equals("1")) {
-            contentValues.put("mName", name);
-            database.insert("materials", null, contentValues);
-            new workWithDb().showAll(context,dataset, database, rb);
 
-            //Toast.makeText(context, "1", Toast.LENGTH_LONG).show();
+            contentValues.put("mName", name);
+
+            database.insert("materials", null, contentValues);
         }
         if (rb.equals("2")) {
+
             contentValues.put("name", name);
             contentValues.put("INN", inn);
-            database.insert("manufacturers", null, contentValues);
-            new workWithDb().showAll(context,dataset, database, rb);
 
-            //Toast.makeText(context, 1, Toast.LENGTH_LONG).show();
+            database.insert("manufacturers", null, contentValues);
         }
     }
 

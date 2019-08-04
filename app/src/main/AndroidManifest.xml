@@ -21,6 +21,7 @@
         <activity android:name=".detailsActivity" />
         <activity android:name=".selectionScreenActivity" />
         <activity android:name=".editActivity" />
+        <activity android:name=".addAdvanceActivity" />
     </application>
 
 </manifest>
