@@ -68,8 +68,6 @@ public class addAdvanceActivity extends AppCompatActivity {
 
         if(rb.equals("1")){rb="2";} else if (rb.equals("2")){rb="1";}
 
-        //Toast.makeText(getApplicationContext(),"Измененный= "+rb,Toast.LENGTH_SHORT).show();
-
         new workWithDb().showAll(getApplicationContext(),dataset, database, rb);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -97,6 +95,7 @@ public class addAdvanceActivity extends AppCompatActivity {
                 else if(rb.equals("2")){rb="1";}
 
                 Intent intent=new Intent();
+                intent.putExtra("dataset",dataset);
                 intent.putExtra("bundle",bundle);
                 setResult(RESULT_OK, intent);
                 finish();

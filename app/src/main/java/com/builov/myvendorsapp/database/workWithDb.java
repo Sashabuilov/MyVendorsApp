@@ -16,10 +16,13 @@ public class workWithDb {
         dataset.clear();
         String query = "";
 
+        //Toast.makeText(context,rb,Toast.LENGTH_SHORT).show();
+
         //проверяем, в каком положении был переключатель (Материал или производитель)
 
         if (rb.equals("1")) query = "SELECT * FROM materials";
         if (rb.equals("2")) query = "SELECT * FROM manufacturers";
+        if (rb.equals("3")) query = "SELECT * FROM temp_table";
 
         //создаем запрос
         Cursor cursor = database.rawQuery(query, null);
@@ -33,12 +36,19 @@ public class workWithDb {
             if (rb.equals("1")) {
                 dataItem.put("Id", cursor.getString(0));
                 dataItem.put("mName", cursor.getString(1));
-            }
+            } else
 
             if (rb.equals("2")) {
                 dataItem.put("id", cursor.getString(0));
                 dataItem.put("Name", cursor.getString(1));
                 dataItem.put("INN", cursor.getString(2));
+            } else
+
+            if (rb.equals("3")){
+
+                dataItem.put("_id", cursor.getString(0));
+                dataItem.put("tempName", cursor.getString(1));
+                dataItem.put("tempINN", cursor.getString(2));
             }
             //Закидываем клиента в список клиентов
             assert dataset != null;

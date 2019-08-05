@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.builov.myvendorsapp.adapter.listViewAdapter;
 import com.builov.myvendorsapp.database.DataBaseHelper;
+import com.builov.myvendorsapp.database.sqlQuery;
+import com.builov.myvendorsapp.database.workWithDb;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -85,6 +87,7 @@ public class addActivity extends AppCompatActivity {
                 intent.putExtra("inn", etINN.getText().toString());
                 intent.putExtra("rb", rb);
                 setResult(RESULT_OK, intent);
+                database.delete("temp_table",null,null);
                 finish();
             }
         });
@@ -101,21 +104,31 @@ public class addActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Bundle bundle = data.getBundleExtra("bundle");
+        //Toast.makeText(getApplicationContext(),rb,Toast.LENGTH_SHORT).show();
+
         String svodId = bundle.getString("Id");
         String svodName = bundle.getString("mName");
+        svodINN = bundle.getString("mINN");
+
         if (rb.equals("1")){
-            svodINN = bundle.getString("mINN");
+
+
         }
+
+         new sqlQuery().tempInsert(database,rb,svodName,svodINN);
 
         if(rb.equals("1")){
 
-            String[] from = {"Name", "INN"};
+            rb="3";
+            String[] from = {"tempName", "tempINN"};
             int[] to = {R.id.mName_holder, R.id.mINN_Holder};
-            //new listViewAdapter().setAdapter(from,to,rb,addListView,,getApplicationContext());
+            new workWithDb().showAll(getApplicationContext(),dataset, database, rb);
+            rb="2";
+            new listViewAdapter().setAdapter(from,to,rb,addListView,dataset,getApplicationContext());
+            rb="1";
         }
 
         intent.putExtra("tempID",svodId);
-
 
     }
 

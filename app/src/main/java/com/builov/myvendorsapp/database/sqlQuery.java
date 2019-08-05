@@ -46,7 +46,7 @@ public class sqlQuery {
 
     public void insert(SQLiteDatabase database, String rb, String name, String inn, ArrayList<HashMap<String, String>> dataset, Context context) {
 
-        ContentValues contentValues=new ContentValues();
+        ContentValues contentValues = new ContentValues();
 
         if (rb.equals("1")) {
 
@@ -66,7 +66,7 @@ public class sqlQuery {
     public void update(SQLiteDatabase database, String id, String name, String inn, Context context) {
         String query = "";
         String table = "";
-        String select= "";
+        String select = "";
 
         //создаем контейнер с данными
         ContentValues cv = new ContentValues();
@@ -90,7 +90,7 @@ public class sqlQuery {
             //наполняем cv полученными ИД, ИМЯ
             cv.put("Id", id);
             cv.put("mName", name);
-            select="id=";
+            select = "id=";
             table = "materials";
             query = "SELECT * FROM materials";
         }
@@ -113,19 +113,38 @@ public class sqlQuery {
         // данные в таблице обновлены, осталось их отобразить. Возвращаемся в MainActivity.
     }
 
-    public void svodInsert(String ID, String tables,SQLiteDatabase database, String manufacturers_id){
+    public void svodInsert(String ID, String tables, SQLiteDatabase database, String manufacturers_id) {
 
-            String query = "SELECT "+ ID +" FROM " + tables + " WHERE " + ID + " = last_insert_rowid() ";
+        String query = "SELECT " + ID + " FROM " + tables + " WHERE " + ID + " = last_insert_rowid() ";
 
-            Cursor cursor = database.rawQuery(query, null);
-            cursor.moveToFirst();
-            String materials_id = cursor.getString(0);
-            cursor.close();
+        Cursor cursor = database.rawQuery(query, null);
+        cursor.moveToFirst();
+        String materials_id = cursor.getString(0);
+        cursor.close();
 
-            ContentValues contentValues=new ContentValues();
-            contentValues.put("manufacturers_id",manufacturers_id);
-            contentValues.put("materials_id",materials_id);
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("manufacturers_id", manufacturers_id);
+        contentValues.put("materials_id", materials_id);
 
-            database.insert("manufacturers_materials", null, contentValues);
+        database.insert("manufacturers_materials", null, contentValues);
+    }
+
+    public void tempInsert(SQLiteDatabase database, String rb, String name, String INN) {
+
+        ContentValues contentValues = new ContentValues();
+
+        if (rb.equals("1")) {
+
+            contentValues.put("tempName", name);
+
+        } else if (rb.equals("2")) {
+
+            contentValues.put("tempName", name);
+            contentValues.put("tempINN", INN);
+        }
+
+        database.insert("temp_table",null,contentValues);
+
+
     }
 }
